@@ -1,0 +1,46 @@
+doctype html
+html(ng-app='myApp')
+  head
+    title= title   
+    script(src='javascripts/angular.min.js') 
+    script(src='javascripts/angular-script.js')
+    link(rel='stylesheet', href='stylesheets/style.css')   
+    link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
+    link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
+  body(style='background-color:#292c2f;')
+    .container(style='margin-top:40px' ng-controller='loginCtrl')
+      .row
+        .col-sm-6.col-md-4.col-md-offset-4
+          .panel.panel-default
+            .panel-heading
+              strong(ng-hide='loginError')  Sign in to continue
+              strong(ng-show='loginError' ng-bind='err_msg')
+            .panel-body
+              form#login(ng-submit='login()')
+                fieldset
+                  .row
+                    .center-block
+                      img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='')
+                  .row
+                    .col-sm-12.col-md-10.col-md-offset-1
+                      .form-group
+                        .input-group
+                          span.input-group-addon
+                            i.glyphicon.glyphicon-user
+                          input.form-control(placeholder='email', name='email', type='text', autofocus='', ng-model='formData.email')
+                        #login_username_err.error
+                      .form-group
+                        .input-group
+                          span.input-group-addon
+                            i.glyphicon.glyphicon-lock
+                          input.form-control(placeholder='Password', name='password', type='password', value='',ng-model='formData.password')
+                        #login_password_err.error
+                      .form-group
+                        button#btn_login_page.btn.btn-lg.btn-primary.btn-block(type='submit') Submit
+                        a(href='http://localhost:3000/home', onclick='')  forgot password ?
+            .panel-footer
+              | Not registerd ?? 
+              a(href='http://localhost:3000/register', onclick='')  Click Here 
+    script(src='javascripts/jquery.min.js')
+    script(src='javascripts/bootstrap.min.js')
+   

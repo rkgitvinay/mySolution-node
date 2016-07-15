@@ -1,0 +1,52 @@
+doctype html
+html(ng-app='myApp')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title= title
+    script(src='javascripts/angular.min.js') 
+    script(src='javascripts/angular-script.js')
+    link(rel='stylesheet', href='stylesheets/demo.css')
+    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel='stylesheet', href='stylesheets/header-login-signup.css')
+    link(rel='stylesheet', href='stylesheets/footer-distributed.css')
+    link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
+    link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
+    link(href='http://fonts.googleapis.com/css?family=Cookie', rel='stylesheet', type='text/css')
+  body
+    nav.navbar.navbar-findcond.navbar-fixed-top
+      .container        
+        #navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-left            
+            li.active
+              a(href='#')
+                span
+                  i.fa.fa-home.fa-lg(aria-hidden='true')&nbsp
+                | Home
+            li
+              a(href='#')
+                span
+                  i.fa.fa-bell.fa-lg(aria-hidden='true')&nbsp
+                | Notifications
+            li
+              a(href='#')
+                span
+                  i.fa.fa-comment.fa-lg(aria-hidden='true')&nbsp
+                | Messages           
+          ul.nav.navbar-nav.navbar-right                        
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')= username                 
+                span.caret
+              ul.dropdown-menu(role='menu')
+                li
+                  a(href='#') Help
+                li
+                  a(href='#') Settings
+                li.divider
+                li
+                  a(href='#') Profile
+                li(ng-controller='logoutCtrl')
+                  a(href='javascript:void(0)' ng-click='logout()') Logout
+          form.navbar-form.navbar-right.search-form(role='search')
+            input.form-control(type='text', placeholder='Search' style='border-radius:21px;')
