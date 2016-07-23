@@ -99,7 +99,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
                 });
 			});
 
-			app.controller('postCtrl', function($scope,$http){								
+			app.controller('postCtrl', function($scope,$http,$rootScope){								
                 $scope.myLike = 0;
 				$scope.postLike = function(postId){
 					$http({
@@ -125,7 +125,15 @@ var app = 	angular.module("myApp", ['ngRoute']);
 						
 					})				
 					
-				};				
+				}
+
+				$scope.getPostDetail = function(postId){
+					var url = "/post/getPostDetail/" + postId;
+					$http.get(url).
+                	then(function(response) {
+                    	$rootScope.postDetail = response.data;
+                	});
+				}				
 			});
 
 			app.controller('loginUserDetails', function($scope,$http){

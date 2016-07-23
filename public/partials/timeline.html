@@ -31,7 +31,8 @@
                           <p>{{postData.post_text}}</p>
                            <hr>
                            <div id="postStats" style="margin-bottom: -10px;margin-top: -15px;">
-                            <span class="col-xs-4 col-centered">                                
+                            <span class="col-xs-4 col-centered"> 
+
                                 <span ng-class="{'colorRed': category === postData.id}" ng-style='myStyle' ng-if='postData.is_like == 1' style="color:red;cursor: pointer;" ng-click="postLike(postData.id)">
                                     <i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>
                                 </span>
@@ -48,11 +49,13 @@
                                 <span ng-if='postData.total_like > 1'>
                                     <a href="javascript:void(0);">{{postData.total_like}} likes</a>
                                 </span>
+
                             </span>
+
                             <span class="col-xs-4 col-centered">
-                                <a href="javascript:void(0)">
+                                <span data-toggle="modal" data-target="#myModal">
                                     <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
-                                </a>
+                                </span>
                             </span>
                             <span class="col-xs-4 col-centered">
                                 <a href="javascript:void(0)">
@@ -101,9 +104,9 @@
                                 </span>
                             </span>
                             <span class="col-xs-4 col-centered">
-                                <a href="javascript:void(0)">
+                                <span href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="getPostDetail(postData.id)">
                                     <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
-                                </a>
+                                </span>
                             </span>
                             <span class="col-xs-4 col-centered">
                                 <a href="javascript:void(0)">

@@ -4,11 +4,20 @@ var session = require('express-session');
 var md5 = require('md5');
 var db = require('../config/database');
 
+
 /* GET home page. */
 router.get('/getPostList', function(req, res, next) { 
-    db.query("SELECT p.*, u.id as user_id, CONCAT(u.first_name,' ',u.last_name) as user_name,IF(l.user_id IS NULL, '0','1') as is_like FROM posts as p LEFT JOIN users as u on u.id=p.user_id LEFT JOIN likes as l on l.post_id = p.id ORDER BY created_at DESC", function(err,posts){
+    db.query("SELECT p.*, u.id as user_id, CONCAT(u.first_name,' ',u.last_name) as user_name,IF(l.user_id IS NULL, '0','1') as is_like FROM posts as p LEFT JOIN users as u on u.id=p.user_id LEFT JOIN likes as l on (l.post_id = p.id and l.user_id = ?) ORDER BY created_at DESC",[req.session.user_id] ,function(err,posts){
             if(err) res.send(err);            
             else res.send(posts);
+        });       
+});
+
+router.get('/getPostDetail/:postId', function(req, res, next) { 
+    var postId = req.params.postId;    
+    db.query("SELECT p.*, u.id as user_id, CONCAT(u.first_name,' ',u.last_name) as user_name,IF(l.user_id IS NULL, '0','1') as is_like FROM posts as p LEFT JOIN users as u on u.id=p.user_id LEFT JOIN likes as l on (l.post_id = p.id and l.user_id = ?) WHERE p.id = ?", [req.session.user_id,postId] ,function(err,post){
+            if(err) res.send(err);            
+            else res.send(post[0]);
         });       
 });
 
