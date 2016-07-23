@@ -1,0 +1,24 @@
+article.timeline-entry                                             
+  .timeline-entry-inner
+    .timeline-icon.bg-secondary
+      img(alt='', src='http://lorempixel.com/100/100/people/9/', style='border-radius: 50%;')
+    .timeline-label
+      h2.float-left
+        a(href='#')= post.user_name      
+      span= post.created_at
+      p= post.post_text
+      hr
+      div#postStats(style='margin-bottom: -10px;margin-top: -15px;')
+        span.col-xs-4.col-centered
+          a(id= post.id,href='javascript:void(0)', ng-click='postLike()')
+            i.fa.fa-heart-o.fa-lg(aria-hidden='true')          
+            a(href='javascript:void(0)' style='color:blue;')&nbsp; 1 Like                   
+        span.col-xs-4.col-centered
+          a(id= post.id, href='javascript:void(0)')
+            i.fa.fa-comment.fa-lg(aria-hidden='true')
+        span.col-xs-4.col-centered
+          a(id= post.id,href='javascript:void(0)')
+            i.fa.fa-retweet.fa-lg(aria-hidden='true')
+        span
+          a(id= post.id, href='javascript:void(0)')
+            i.fa.fa-ellipsis-v.fa-lg(aria-hidden='true')

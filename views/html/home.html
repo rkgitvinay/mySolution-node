@@ -1,0 +1,80 @@
+<html>
+    <style>
+        .colorGray{color: #8A8887;}
+        .colorRed{color: red;}
+    </style>
+    
+  <body style="background-color:#eaf0f2">
+    <div class="container">
+      <div class="row">
+
+      <!-- left sidebar menu  START-->
+
+        <div class="hidden-xs col-md-3 col-centered" ng-controller="loginUserDetails">
+          <div class="item">
+            <div class="content">
+              <div style="position: fixed;top: 7%;width: 21%;z-index: 999;" class="card hovercard">
+                <div class="cardheader"></div>
+                <div class="avatar"><img alt="" src="images/my.jpg"/></div>
+                <div class="info">
+                  <div class="title"><a target="_blank" href="#">{{userInfo.full_name}}</a></div>
+                  <div class="desc">{{userInfo.email}}</div>
+                  <div class="desc">Backend developer</div>
+                  <div class="desc">Tech geek</div>
+                </div>
+                <div class="bottom"><a href="https://twitter.com/webmaniac" class="btn btn-primary btn-twitter btn-sm"><i class="fa fa-twitter"></i></a><a rel="publisher" href="https://plus.google.com/+ahmshahnuralam" class="btn btn-danger btn-sm"><i class="fa fa-google-plus"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-warning btn-sm"><i class="fa fa-behance"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- left sidebar menu END -->
+
+        <!-- Middle post content page  start-->
+
+        <div style="padding-top:5%;" class="col-md-6 col-centered">
+          <div id="boxshadow" style="border:1px solid #cecece; border-radius:3px;" class="item">
+            <div class="content">
+
+                <div ng-view>
+                  
+                </div>
+            
+
+            </div>
+
+            
+          </div>
+        </div>
+
+        <!-- Middle post bar END -->
+
+
+        <!-- Right SIdebar Content STAET -->
+
+
+       <!--  <div class="hidden-xs col-md-3 col-centered">
+          <div class="item">
+            <div class="content">
+              <div style="position: fixed;top: 7%;width: 21%;              z-index: 999;" class="card hovercard">
+                <div class="cardheader"></div>
+                <div class="avatar"><img alt="" src="http://lorempixel.com/100/100/people/9/"/></div>
+                <div class="info">
+                  <div class="title"><a target="_blank" href="http://scripteden.com/">Script Eden</a></div>
+                  <div class="desc">Passionate designer</div>
+                  <div class="desc">Curious developer</div>
+                  <div class="desc">Tech geek</div>
+                </div>
+                <div class="bottom"><a href="https://twitter.com/webmaniac" class="btn btn-primary btn-twitter btn-sm"><i class="fa fa-twitter"></i></a><a rel="publisher" href="https://plus.google.com/+ahmshahnuralam" class="btn btn-danger btn-sm"><i class="fa fa-google-plus"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-warning btn-sm"><i class="fa fa-behance"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+        <!-- Right sidebar Content END -->
+
+      </div>
+    </div>
+  </body>
+</html>

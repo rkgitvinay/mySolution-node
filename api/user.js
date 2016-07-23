@@ -24,10 +24,10 @@ router.post('/login', function(req, res) {
 	var json = req.body;  	
   	db.query('SELECT * FROM users WHERE email=? AND password =?', [json.email,md5(json.password)], function(err, result){
   		if(result.length > 0){
-        req.session.id = result[0].id;
+        req.session.user_id = result[0].id;
         req.session.name = result[0].first_name;
         req.session.email = result[0].email;
-  			res.send({status:'success', message : 'login successful'});
+        res.send({status:'success', message:'login successfully!'});         			
   		}else{
   			res.send({status:'fail', message:'email or password does not match'});
   		}
@@ -35,10 +35,21 @@ router.post('/login', function(req, res) {
 
 });
 
+router.get('/getUserDetails', function(req,res){
+      var user_id = req.session.user_id;
+      db.query("SELECT id,first_name,last_name,CONCAT(first_name, ' ', last_name) as full_name, email FROM users WHERE id = ?", [user_id], function(err,result){
+          if(err) res.send({status:'error', error:err});
+          else res.send(result[0]);
+      });
+});
+
+
 router.post('/logout',function(req,res){
     req.session.destroy();
     res.send({status:'success', message : 'logout successful'});
 });
+
+
 
 
 module.exports = router;

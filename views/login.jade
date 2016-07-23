@@ -3,6 +3,7 @@ html(ng-app='myApp')
   head
     title= title   
     script(src='javascripts/angular.min.js') 
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js') 
     script(src='javascripts/angular-script.js')
     link(rel='stylesheet', href='stylesheets/style.css')   
     link(rel='stylesheet', href='stylesheets/font-awesome.min.css')
@@ -18,7 +19,7 @@ html(ng-app='myApp')
             .panel-body
               form#login(ng-submit='login()')
                 fieldset
-                  .row
+                  .row(style='margin-left:30%;')
                     .center-block
                       img.profile-img(src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120', alt='')
                   .row
