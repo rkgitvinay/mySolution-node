@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   		res.render('index', { title: 'Title | Default Page' });
   	}
 });
-
+// test change
 router.get('/home', function(req,res){
 	if(req.session.name){  
 		res.render('home', { title: 'Title | Home Page', username : req.session.name});	
