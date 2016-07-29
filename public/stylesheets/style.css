@@ -708,3 +708,37 @@ img {
 .timeline-label span{
     font-size: 0.8em;
 }
+
+
+li.ui-state-default{
+    background:#fff0;
+    /*border:none;*/
+    /*border-bottom:1px solid #ddd;*/
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+li.ui-state-default:last-child{
+    /*border-bottom:none;*/
+}
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+body {
+  background-color:#fff;
+  -webkit-font-smoothing: antialiased;
+  font: normal 14px Roboto,arial,sans-serif;
+}
+
+.btn,.form-control,.well {
+    border-radius:1px;
+    box-shadow:0 0 0;
+}
+
+
+
+.well,.panel {
+    border-color:#d2d2d2;
+    box-shadow:0 1px 0 #cfcfcf;
+    border-radius:3px;
+}
+

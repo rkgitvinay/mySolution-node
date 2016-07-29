@@ -2,7 +2,13 @@
     <style>
         .colorGray{color: #8A8887;}
         .colorRed{color: red;}
+        .isHide{display: none;}
     </style>
+    <script>
+        $(document).on('click', '#modalContent', function () {
+            $('#newComment').html('');
+        });
+    </script>
     
   <body style="background-color:#eaf0f2">
     <div class="container">
@@ -15,7 +21,7 @@
             <div class="content">
               <div style="position: fixed;top: 7%;width: 21%;z-index: 999;" class="card hovercard">
                 <div class="cardheader"></div>
-                <div class="avatar"><img alt="" src="images/my.jpg"/></div>
+                <div class="avatar"><img alt="" src="images/{{userInfo.profile_pic}}"/></div>
                 <div class="info">
                   <div class="title"><a target="_blank" href="#">{{userInfo.full_name}}</a></div>
                   <div class="desc">{{userInfo.email}}</div>
@@ -32,7 +38,7 @@
 
         <!-- Middle post content page  start-->
 
-        <div style="padding-top:5%;" class="col-md-6 col-centered">
+        <div style="padding-top:5%;padding-right:10px;" class="col-md-6 col-centered">
           <div id="boxshadow" style="border:1px solid #cecece; border-radius:3px;" class="item">
             <div class="content">
 
@@ -53,23 +59,35 @@
         <!-- Right SIdebar Content STAET -->
 
 
-       <!--  <div class="hidden-xs col-md-3 col-centered">
+        <div class="hidden-xs col-md-3 col-centered" ng-controller="suggestionCtrl">
           <div class="item">
             <div class="content">
-              <div style="position: fixed;top: 7%;width: 21%;              z-index: 999;" class="card hovercard">
-                <div class="cardheader"></div>
-                <div class="avatar"><img alt="" src="http://lorempixel.com/100/100/people/9/"/></div>
-                <div class="info">
-                  <div class="title"><a target="_blank" href="http://scripteden.com/">Script Eden</a></div>
-                  <div class="desc">Passionate designer</div>
-                  <div class="desc">Curious developer</div>
-                  <div class="desc">Tech geek</div>
+              <div style="position: fixed;top: 7%;width: 21%;  background-color: #FFFFFF; z-index: 999;" class="card hovercard">
+
+                  <h4 style="text-align:left;padding:10px;color:#9B9999;">Suggestions</h4>
+
+                  <div style="padding:10px;" ng-class="{'isHide': hide === suggest.user_id}" ng-repeat="suggest in userSuggestions">                  
+                    <p style="display:inline;float:left;">
+                      <a title="Facebook" href="">
+                          <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{suggest.profile_pic}}"/>
+                      </a> 
+                    </p>
+                      <div style="float:left">
+                          <span style="font-size:1.3em;">&nbsp;<a href="">{{suggest.full_name}}</a></span> 
+                      </div>
+                      <div style="float:right">
+                          <span style="display: -moz-groupbox;">
+                              <button ng-click="follow(suggest.user_id)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
+                          </span> 
+                      </div>                                       
+                    <hr style="margin:-5px;">
                 </div>
-                <div class="bottom"><a href="https://twitter.com/webmaniac" class="btn btn-primary btn-twitter btn-sm"><i class="fa fa-twitter"></i></a><a rel="publisher" href="https://plus.google.com/+ahmshahnuralam" class="btn btn-danger btn-sm"><i class="fa fa-google-plus"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-primary btn-sm"><i class="fa fa-facebook"></i></a><a rel="publisher" href="https://plus.google.com/shahnuralam" class="btn btn-warning btn-sm"><i class="fa fa-behance"></i></a></div>
+                <a href="#suggestions">see all suggestions</a>
+                             
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
 
         <!-- Right sidebar Content END -->
@@ -82,70 +100,66 @@
 
      <!-- Comment  Modal -->
      
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Comment</h4>
-            </div>
-            <div class="modal-body">
-
-                    <article class="timeline-entry" ng-controller='postCtrl'>
-                      <div class="timeline-entry-inner">
-                        <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/my.jpg"/>
-                        </div>
-                        <div class="timeline-label">
-                          <h2><a href="#">{{postDetail.user_name}}</a></h2>
-                          <span>{{postDetail.created_at}}</span>
-                          <p>{{postDetail.post_text}}</p>                        
-                        <hr>
-                        <div id="postStats" style="margin-bottom: -10px;margin-top: -15px;">
-                            <span class="col-xs-4 col-centered">                                
-                                <span ng-class="{'colorRed': category === postDetail.id}" ng-style='myStyle' ng-if='postDetail.is_like == 1' style="color:red;cursor: pointer;" ng-click="postLike(postDetail.id)">
-                                    <i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>
-                                </span>
-                                 <span ng-class="{'colorRed': category === postDetail.id}" style="cursor: pointer;"  ng-if='postDetail.is_like == 0' ng-click="postLike(postDetail.id)">
-                                    <i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>
-                                </span>
-
-                                <span ng-if='postDetail.total_like == 0'>
-                                    <a href="javascript:void(0);">{{myLike}} Like</a>
-                                </span>
-                                <span ng-if='postDetail.total_like == 1'>
-                                    <a href="javascript:void(0);">{{postDetail.total_like}} like</a>
-                                </span>
-                                <span ng-if='postDetail.total_like > 1'>
-                                    <a href="javascript:void(0);">{{postDetail.total_like}} likes</a>
-                                </span>
-                            </span>
-                            <span class="col-xs-4 col-centered">
-                                <span href="javascript:void(0)">
-                                    <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
-                                </span>
-                            </span>
-                            <span class="col-xs-4 col-centered">
-                                <a href="javascript:void(0)">
-                                    <i aria-hidden="true" class="fa fa-retweet fa-lg"></i>
-                                </a>
-                            </span>
-                            <span>
-                                <a href="javascript:void(0)">
-                                    <i aria-hidden="true" class="fa fa-ellipsis-v fa-lg"></i>
-                                </a>
-                            </span>
-                        </div>
-                      </div>
-                     </div>
-                    </article>
-
-
-
-
-            </div>            
-          </div>
-        </div>
+     <!-- Modal -->
+<div class="modal fade" id="myCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title"><i class="fa fa-comment"></i> Comment</h4>
       </div>
+      <div class="modal-body" ng-controller="commentCtrl">
+        <p style="display:inline;float:left;">
+            <a title="Facebook" href="">
+                <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/my.jpg"/>
+            </a> 
+            <div style="float:left">
+                <span style="font-size:1.3em;">&nbsp;<a href="">{{postDetail.user_name}}</a></span> 
+            </div>
+             <div style="float:right">
+                <span style="display: -moz-groupbox;">
+                    <button class="btn btn-primary"><i class="fa fa-cog"></i>&nbsp;follow</button>
+                </span> 
+            </div>
+          
+        </p>
+        <br>    
+        <br>
+        <p style="display: -moz-groupbox; text-align: justify;">{{postDetail.post_text}}</p>                
+        <form ng-submit="doComment(postDetail.id)">
+            <div class="input-group col-md-12">
+              <input type="text" ng-model="formData.commentData" placeholder="post your comment!" class="form-control" style="border-radius:5px;" />
+            </div>                      
+        </form>
+        <hr>              
+            <ul style="background-color: #F6F7F9;border-radius: 5px;padding: 10px;list-style-type:none">
+
+                <div id="newComment" ng-show="showCommentDiv">
+                    <strong class="pull-left primary-font">{{newComment.full_name}}</strong>
+                    <small class="pull-right text-muted">
+                       <span class="glyphicon glyphicon-time"></span>{{newComment.comment_at}}</small>
+                    <br>
+                    <li class="ui-state-default">{{newComment.comment_text}}</li>
+                    <hr>
+                </div>
+                <div ng-if="commentDetail.length > 0" ng-repeat="comment in commentDetail">
+                    <strong class="pull-left primary-font">{{comment.full_name}}</strong>
+                    <small class="pull-right text-muted">
+                       <span class="glyphicon glyphicon-time"></span>{{comment.comment_at}}</small>
+                    <br>
+                    <li class="ui-state-default">{{comment.comment_text}}</li>
+                    <hr>
+                </div>
+                <div ng-if="commentDetail.length == 0" ng-hide="noCommentDiv">
+                    <p>No comments!</p>
+                </div>
+                       
+            </ul>
+        
+      </div>
+     
+    </div>
+  </div>
     
 
       <!-- Comment  Modal END-->

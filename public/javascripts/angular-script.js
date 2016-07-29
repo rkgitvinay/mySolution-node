@@ -14,6 +14,9 @@ var app = 	angular.module("myApp", ['ngRoute']);
 		                //controller: "EditContactController",
 		                templateUrl: "partials/messages.html"
 		            })
+		            .when("/suggestions",{
+		            	templateUrl: "partials/suggestions.html"	
+		            })
 		            .otherwise({
 		                redirectTo: "/"
 		            })
@@ -125,24 +128,65 @@ var app = 	angular.module("myApp", ['ngRoute']);
 						
 					})				
 					
-				}
+				}	
 
 				$scope.getPostDetail = function(postId){
-					var url = "/post/getPostDetail/" + postId;
+					$rootScope.resetCommentModal = '';
+					var url = '/post/getPostDetail/'+postId;
 					$http.get(url).
                 	then(function(response) {
-                    	$rootScope.postDetail = response.data;
+                		var result = response.data;
+                    	$rootScope.postDetail = result.postData;
+                    	$rootScope.commentDetail = result.comments;                    	
                 	});
-				}				
+				}
+
 			});
 
-			app.controller('loginUserDetails', function($scope,$http){
+			app.controller('loginUserDetails', function($scope,$http,$rootScope){
 				$http.get("/user/getUserDetails").
                 	then(function(response) {
                     	$scope.userInfo = response.data;
+                    	$rootScope.notifications =  response.data.notifications;
                 });
 			});
 
+			app.controller('commentCtrl',function($scope,$http){				
+				$scope.showCommentDiv = false;
+				$scope.doComment = function(postId){
+					$http({
+						method 	: 'POST',
+						url		: '/post/doComment/'+postId,
+						data    : $scope.formData, 
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){
+						$scope.formData = null;												
+						$scope.newComment = response.data;
+						$scope.showCommentDiv = true;										
+						$scope.noCommentDiv = true;
+					})
+					
+				};
+			});
+
+			app.controller('suggestionCtrl', function($scope,$http){
+				$http.get("/user/getUserSuggestions").
+                	then(function(response) {
+                    	$scope.userSuggestions = response.data;                    	
+                });                                
+                $scope.follow = function(userId, $index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/dofollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){							
+						$scope.hide = userId;
+					})
+                }
+			});
 			
 
 			

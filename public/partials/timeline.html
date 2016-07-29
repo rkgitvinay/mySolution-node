@@ -23,7 +23,7 @@
 
                     <article class="timeline-entry" ng-show='showDiv' ng-controller='postCtrl'>
                       <div class="timeline-entry-inner">
-                         <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/my.jpg"/>
+                         <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{postData.profile_pic}}"/>
                         </div>
                         <div class="timeline-label">
                           <h2><a href="#">{{postData.user_name}}</a></h2>
@@ -52,10 +52,11 @@
 
                             </span>
 
-                            <span class="col-xs-4 col-centered">
-                                <span data-toggle="modal" data-target="#myModal">
+                            <span class="col-xs-4 col-centered">                                 
+                                <span id="modalContent" style="cursor: pointer;" href="javascript:void(0)" data-toggle="modal" data-target="#myCommentModal" ng-click="getPostDetail(postData.id)">
                                     <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
-                                </span>
+                              
+                            </span>
                             </span>
                             <span class="col-xs-4 col-centered">
                                 <a href="javascript:void(0)">
@@ -77,7 +78,7 @@
                  
                     <article class="timeline-entry" ng-repeat='postData in postList' ng-controller='postCtrl'>
                       <div class="timeline-entry-inner">
-                        <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/my.jpg"/>
+                        <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{postData.profile_pic}}"/>
                         </div>
                         <div class="timeline-label">
                           <h2><a href="#">{{postData.user_name}}</a></h2>
@@ -104,7 +105,7 @@
                                 </span>
                             </span>
                             <span class="col-xs-4 col-centered">
-                                <span href="javascript:void(0)" data-toggle="modal" data-target="#myModal" ng-click="getPostDetail(postData.id)">
+                                <span style="cursor: pointer;" href="javascript:void(0)" data-toggle="modal" data-target="#myCommentModal" ng-click="getPostDetail(postData.id)">
                                     <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
                                 </span>
                             </span>
