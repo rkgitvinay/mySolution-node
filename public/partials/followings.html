@@ -1,0 +1,19 @@
+<div ng-controller="getFollowings">
+ 	<h4 style="text-align:left;padding:10px;color:#9B9999;">Followings</h4>
+        <div style="padding:10px;" ng-class="{'isHide': hide === follow.user_id}" ng-repeat="follow in myFollowingsList">                  
+            <p style="display:inline;float:left;">
+              <a title="Facebook" href="">
+                  <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{follow.profile_pic}}"/>
+              </a> 
+            </p>
+          	<div style="float:left">
+              	<span style="font-size:1.3em;">&nbsp;<a href="">{{follow.full_name}}</a></span> 
+          	</div>
+          	<div style="float:right">
+	            <span style="display: -moz-groupbox;">
+	                <button ng-click="unFollow(follow.user_id)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;Unfollow</button>
+	            </span> 
+          	</div>                                       
+            <hr style="margin:-5px;">
+      	</div>
+</div>

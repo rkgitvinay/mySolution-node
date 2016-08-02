@@ -1,0 +1,62 @@
+              <div id="timeline" class="timeline-centered">     
+
+                <div  ng-controller="getMyPostsCtrl">                  
+
+                
+                 
+                    <article class="timeline-entry" ng-repeat='postData in myPostList' ng-controller='postCtrl'>
+                      <div class="timeline-entry-inner">
+                        <div class="timeline-icon bg-secondary"><img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{postData.profile_pic}}"/>
+                        </div>
+                        <div class="timeline-label">
+                          <h2><a href="#">{{postData.user_name}}</a></h2>
+                          <span>{{postData.created_at}}</span>
+                          <p>{{postData.post_text}}</p>                        
+                        <hr>
+                        <div id="postStats" style="margin-bottom: -10px;margin-top: -15px;">
+                            <span class="col-xs-4 col-centered">                                
+                                <span ng-class="{'colorRed': category === postData.id}" ng-style='myStyle' ng-if='postData.is_like == 1' style="color:red;cursor: pointer;" ng-click="postLike(postData.id)">
+                                    <i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>
+                                </span>
+                                 <span ng-class="{'colorRed': category === postData.id}" style="cursor: pointer;"  ng-if='postData.is_like == 0' ng-click="postLike(postData.id)">
+                                    <i aria-hidden="true" class="fa fa-heart-o fa-lg"></i>
+                                </span>
+
+                                <span ng-if='postData.total_like == 0'>
+                                    <a href="javascript:void(0);">{{myLike}} Like</a>
+                                </span>
+                                <span ng-if='postData.total_like == 1'>
+                                    <a href="javascript:void(0);">{{postData.total_like}} like</a>
+                                </span>
+                                <span ng-if='postData.total_like > 1'>
+                                    <a href="javascript:void(0);">{{postData.total_like}} likes</a>
+                                </span>
+                            </span>
+                            <span class="col-xs-4 col-centered">
+                                <span style="cursor: pointer;" href="javascript:void(0)" data-toggle="modal" data-target="#myCommentModal" ng-click="getPostDetail(postData.id)">
+                                    <i aria-hidden="true" class="fa fa-comment fa-lg"></i>
+                                </span>
+                            </span>
+                            <span class="col-xs-4 col-centered">
+                                <a href="javascript:void(0)">
+                                    <i aria-hidden="true" class="fa fa-retweet fa-lg"></i>
+                                </a>
+                            </span>
+                            <span>
+                                <a href="javascript:void(0)">
+                                    <i aria-hidden="true" class="fa fa-ellipsis-v fa-lg"></i>
+                                </a>
+                            </span>
+                        </div>
+                      </div>
+                     </div>
+                    </article>
+                   
+                </div>         
+               
+                <article class="timeline-entry begin">
+                  <div class="timeline-entry-inner">
+                    <div style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);" class="timeline-icon"><i class="entypo-flight"></i> +</div>
+                  </div>
+                </article>
+              </div>

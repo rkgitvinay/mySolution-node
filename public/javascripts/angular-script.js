@@ -17,6 +17,15 @@ var app = 	angular.module("myApp", ['ngRoute']);
 		            .when("/suggestions",{
 		            	templateUrl: "partials/suggestions.html"	
 		            })
+		            .when("/posts",{
+		            	templateUrl: "partials/posts.html"	
+		            })
+		            .when("/followings",{
+		            	templateUrl: "partials/followings.html"	
+		            })
+		            .when("/followers",{
+		            	templateUrl: "partials/followers.html"	
+		            })
 		            .otherwise({
 		                redirectTo: "/"
 		            })
@@ -100,7 +109,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
                 	then(function(response) {
                     	$rootScope.postList = response.data;
                 });
-			});
+			});			
 
 			app.controller('postCtrl', function($scope,$http,$rootScope){								
                 $scope.myLike = 0;
@@ -147,6 +156,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 				$http.get("/user/getUserDetails").
                 	then(function(response) {
                     	$scope.userInfo = response.data;
+                    	$rootScope.username = response.data.first_name;
                     	$rootScope.notifications =  response.data.notifications;
                 });
 			});
@@ -187,6 +197,61 @@ var app = 	angular.module("myApp", ['ngRoute']);
 					})
                 }
 			});
+
+			app.controller('notificationCtrl', function($scope,$http,$rootScope){
+				$http.get("/user/getNotifications").
+                	then(function(response) {
+                    	$scope.userNotifications = response.data;  
+                    	$rootScope.notifications = 0;                  	
+                });                                                
+			});
 			
+			app.controller('getMyPostsCtrl', function($scope,$http){
+				$http.get("/post/getMyPostList").
+                	then(function(response) {
+                    	$scope.myPostList = response.data;
+                });
+			});
+
+			app.controller('getFollowings', function($scope,$http){
+				$http.get("/user/getFollowingsList").
+                	then(function(response) {
+                    	$scope.myFollowingsList = response.data;
+                });
+
+                $scope.unFollow = function(userId, $index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/unfollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){							
+						$scope.hide = userId;
+					})
+                }
+			});
+
+
+			app.controller('getMyFollowers', function($scope,$http){
+				$http.get("/user/getFollowersList").
+                	then(function(response) {
+                    	$scope.myFollowers = response.data;
+                });
+
+                $scope.follow = function(userId, $index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/dofollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){							
+						$scope.hide = userId;
+					})
+                }
+
+                
+			});
 
 			

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="javascripts/angular.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"> </script>
+    <script src="javascripts/angular-script.js"></script>
+    <link rel="stylesheet" href="stylesheets/demo.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/header-login-signup.css">
+    <link rel="stylesheet" href="stylesheets/footer-distributed.css">
+    <link rel="stylesheet" href="stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-findcond navbar-fixed-top">
+      <div class="container">
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a href="#/"><span><i aria-hidden="true" class="fa fa-home fa-lg">&nbsp</i></span>Home</a></li>
+            <li><a href="#notification"><span ng-if="notifications == 0"><i aria-hidden="true" class="fa fa-bell fa-lg">&nbsp</i></span><span class="badge" ng-if="notifications > 0">{{notifications}}</span>Notifications</a></li>
+            <li><a href="#messages"><span><i aria-hidden="true" class="fa fa-comment fa-lg">&nbsp</i></span>Messages           </a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a href="javascript:void(0)" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">{{username}}<span class="caret"></span></a>
+              <ul role="menu" class="dropdown-menu">
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Profile</a></li>
+                <li ng-controller="logoutCtrl"><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form role="search" class="navbar-form navbar-right search-form">
+            <input type="text" placeholder="Search" style="border-radius:21px;" class="form-control">
+          </form>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

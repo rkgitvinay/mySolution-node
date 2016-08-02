@@ -75,6 +75,46 @@ router.post('/dofollow', function(req,res){
     });
 });
 
+router.post('/unfollow', function(req,res){
+    var user_id = req.body.userId;    
+    var follower_id = req.session.user_id;
+    db.query('SELECT id FROM user_follow WHERE follower_id = ? AND user_id = ?', [follower_id,user_id], function(err,response){
+        if(err) res.send({status:'error', error:err});
+        else if(response.length > 0){            
+            db.query('DELETE FROM user_follow WHERE follower_id = ? AND user_id = ?', [follower_id,user_id]);
+            db.query('UPDATE users SET followers = followers - 1 WHERE id = ?', user_id);              
+            res.send({status:'success', message:'unfollow successful'});
+        }
+    });
+});
+
+router.get('/getNotifications', function(req,res){
+    var user_id = req.session.user_id;
+      db.query("SELECT n.id as noti_id,n.notify_by as notify_by_id,CONCAT(u.first_name, ' ', u.last_name) as full_name,u.profile_pic,n.post_id,n.notify_type,n.is_read FROM notification as n LEFT JOIN users as u on u.id = n.notify_by WHERE n.notify_to = ?", [user_id], function(err,result){
+          if(err) res.send({status:'error', error:err});
+          else{
+            db.query("UPDATE notification SET is_read = '1' WHERE notify_to = ? AND is_read = '0'",[user_id]);
+            res.send(result);
+          } 
+      });
+});
+
+router.get('/getFollowingsList', function(req,res){
+    var user_id = req.session.user_id;
+    db.query("SELECT u.id as user_id, CONCAT(u.first_name, ' ', u.last_name) as full_name, u.profile_pic FROM users as u LEFT JOIN user_follow as uf on uf.user_id = u.id WHERE uf.follower_id = ?", [user_id], function(err,result){
+        if(err) res.send({status:'error', error:err});
+        else res.send(result);
+    });
+});
+
+router.get('/getFollowersList', function(req,res){
+    var user_id = req.session.user_id;
+    db.query("SELECT u.id as user_id, CONCAT(u.first_name, ' ', u.last_name) as full_name, u.profile_pic FROM users as u LEFT JOIN user_follow as uf on uf.follower_id = u.id WHERE uf.user_id = ?", [user_id], function(err,result){
+        if(err) res.send({status:'error', error:err});
+        else res.send(result);
+    });
+});
+
 
 
 module.exports = router;

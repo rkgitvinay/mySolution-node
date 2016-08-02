@@ -1,2 +1,20 @@
-<h1>Notification</h1>
-<p>comming soon</p>
+<div ng-controller="notificationCtrl">
+ 	<h4 style="text-align:left;padding:10px;color:#9B9999;">Notifications</h4>
+        <div style="padding:10px;" ng-repeat="noti in userNotifications">                  
+            <p style="display:inline;float:left;">
+              <a title="Facebook" href="">
+                  <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{noti.profile_pic}}"/>
+              </a> 
+            </p>
+          	<div style="float:left" ng-if="noti.is_read == 0">
+              	<span style="font-size:1.3em;">&nbsp;<a href="">{{noti.full_name}}</a><sup style="color:red;">new</sup></span> 
+          	</div>
+          	<div style="float:left" ng-if="noti.is_read == 1">
+              	<span style="font-size:1.3em;">&nbsp;<a href="">{{noti.full_name}}</a></span> 
+          	</div>
+          	<div ng-if="noti.notify_type == 'follow'">
+	            <p>&nbsp;follows you on myTwitter</p>
+          	</div>                                       
+            <hr style="margin:-5px;">
+      	</div>
+</div>
