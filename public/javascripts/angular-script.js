@@ -158,6 +158,9 @@ var app = 	angular.module("myApp", ['ngRoute']);
                     	$scope.userInfo = response.data;
                     	$rootScope.username = response.data.first_name;
                     	$rootScope.notifications =  response.data.notifications;
+                    	$rootScope.posts =  response.data.posts;
+                    	$rootScope.following =  response.data.following;
+                    	$rootScope.followers =  response.data.followers;
                 });
 			});
 
@@ -180,7 +183,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 				};
 			});
 
-			app.controller('suggestionCtrl', function($scope,$http){
+			app.controller('suggestionCtrl', function($scope,$http,$rootScope){
 				$http.get("/user/getUserSuggestions").
                 	then(function(response) {
                     	$scope.userSuggestions = response.data;                    	
@@ -194,6 +197,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 					})
 					.then(function(response){							
 						$scope.hide = userId;
+						$rootScope.following = $rootScope.following + 1;
 					})
                 }
 			});
@@ -219,7 +223,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
                     	$scope.myFollowingsList = response.data;
                 });
 
-                $scope.unFollow = function(userId, $index){                	
+                $scope.unFollow = function(userId, $index,$rootScope){                	
                 	$http({
 						method 	: 'POST',
 						url		: '/user/unfollow',
@@ -228,6 +232,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 					})
 					.then(function(response){							
 						$scope.hide = userId;
+						$rootScope.following = $rootScope.following - 1;
 					})
                 }
 			});

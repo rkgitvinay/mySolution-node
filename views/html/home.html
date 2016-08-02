@@ -32,21 +32,21 @@
                    <div class="twPc-divStats">
                     <ul class="twPc-Arrange">
                       <li class="twPc-ArrangeSizeFit">
-                        <a href="#/posts" title="9.840 Tweet">
+                        <a href="#/posts" title="{{posts}} Tweet">
                           <span class="twPc-StatLabel twPc-block">Posts</span>
-                          <span class="twPc-StatValue">9.840</span>
+                          <span class="twPc-StatValue">{{posts}}</span>
                         </a>
                       </li>
                       <li class="twPc-ArrangeSizeFit">
-                        <a href="#/followings" title="885 Following">
+                        <a href="#/followings" title="{{following}} Following">
                           <span class="twPc-StatLabel twPc-block">Following</span>
-                          <span class="twPc-StatValue">885</span>
+                          <span class="twPc-StatValue">{{following}}</span>
                         </a>
                       </li>
                       <li class="twPc-ArrangeSizeFit">
-                        <a href="#/followers" title="1.810 Followers">
+                        <a href="#/followers" title="{{followers}} Followers">
                           <span class="twPc-StatLabel twPc-block">Followers</span>
-                          <span class="twPc-StatValue">1.810</span>
+                          <span class="twPc-StatValue">{{followers}}</span>
                         </a>
                       </li>
                     </ul>
@@ -89,7 +89,7 @@
 
                   <h4 style="text-align:left;padding:10px;color:#9B9999;">Suggestions</h4>
 
-                  <div style="padding:10px;" ng-class="{'isHide': hide === suggest.user_id}" ng-repeat="suggest in userSuggestions">                  
+                  <div style="padding:10px;" ng-class="{'isHide': hide === suggest.user_id}" ng-repeat="suggest in userSuggestions | limitTo:3">                  
                     <p style="display:inline;float:left;">
                       <a title="Facebook" href="">
                           <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{suggest.profile_pic}}"/>

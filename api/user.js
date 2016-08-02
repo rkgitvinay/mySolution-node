@@ -7,7 +7,7 @@ var db = require('../config/database');
 /* GET home page. */
 router.post('/register', function(req, res) {
 	var json = req.body;
-  	var register_data = {first_name:json.first_name,last_name:json.last_name,email:json.email,password:md5(json.password),profile_pic:json.first_name+'.png'};
+  	var register_data = {first_name:json.first_name,last_name:json.last_name,email:json.email,password:md5(json.password),profile_pic:'default.png'};
   	db.query('INSERT INTO users SET ?',register_data,function(err, result){
   		if(err){
   			res.send({erro:err});
@@ -37,7 +37,7 @@ router.post('/login', function(req, res) {
 
 router.get('/getUserDetails', function(req,res){
       var user_id = req.session.user_id;
-      db.query("SELECT id,first_name,last_name,CONCAT(first_name, ' ', last_name) as full_name, email,profile_pic,(SELECT count(*) FROM notification WHERE notify_to = ? AND is_read='0') as notifications FROM users WHERE id = ?", [user_id,user_id], function(err,result){
+      db.query("SELECT id,first_name,last_name,CONCAT(first_name, ' ', last_name) as full_name, email,profile_pic,(SELECT count(*) FROM notification WHERE notify_to = ? AND is_read='0') as notifications, (SELECT count(id) FROM posts WHERE user_id=?) as posts,(SELECT count(id) FROM user_follow WHERE follower_id = ?) as following, (SELECT count(id) FROM user_follow WHERE user_id = ?) as followers FROM users WHERE id = ?", [user_id,user_id,user_id,user_id,user_id], function(err,result){
           if(err) res.send({status:'error', error:err});
           else res.send(result[0]);
       });
@@ -51,7 +51,7 @@ router.post('/logout',function(req,res){
 
 router.get('/getUserSuggestions', function(req,res){
     var user_id = req.session.user_id;
-      db.query("SELECT id as user_id,first_name,last_name,CONCAT(first_name, ' ', last_name) as full_name, email,profile_pic FROM users WHERE id != ? AND id NOT IN (SELECT user_id FROM user_follow WHERE follower_id = ?) ORDER BY id DESC", [user_id,user_id], function(err,result){
+      db.query("SELECT id as user_id,first_name,last_name,CONCAT(first_name, ' ', last_name) as full_name, email,profile_pic FROM users WHERE id != ? AND id NOT IN (SELECT user_id FROM user_follow WHERE follower_id = ?) ORDER BY id DESC LIMIT 20", [user_id,user_id], function(err,result){
           if(err) res.send({status:'error', error:err});
           else res.send(result);
       });
