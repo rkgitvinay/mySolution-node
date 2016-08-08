@@ -196,9 +196,22 @@ var app = 	angular.module("myApp", ['ngRoute']);
 						headers : { 'Content-Type': 'application/json' } 
 					})
 					.then(function(response){							
-						$scope.hide = userId;
+						$scope.follow[$index] = true;						
 						$rootScope.following = $rootScope.following + 1;
 					})
+                }
+
+                 $scope.unFollow = function(userId,$index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/unfollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){													
+						$rootScope.following = $rootScope.following - 1;
+						$scope.follow[$index] = false;
+					});
                 }
 			});
 
@@ -217,28 +230,42 @@ var app = 	angular.module("myApp", ['ngRoute']);
                 });
 			});
 
-			app.controller('getFollowings', function($scope,$http){
+			app.controller('getFollowings', function($scope,$http,$rootScope){
 				$http.get("/user/getFollowingsList").
                 	then(function(response) {
                     	$scope.myFollowingsList = response.data;
                 });
 
-                $scope.unFollow = function(userId, $index,$rootScope){                	
+                $scope.follow = function(userId, $index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/dofollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){							
+						$scope.unfollow[$index] = false;						
+						$rootScope.following = $rootScope.following + 1;
+					})
+                }
+
+                 $scope.unFollow = function(userId,$index){                	
                 	$http({
 						method 	: 'POST',
 						url		: '/user/unfollow',
 						data    : {userId:userId},
 						headers : { 'Content-Type': 'application/json' } 
 					})
-					.then(function(response){							
-						$scope.hide = userId;
+					.then(function(response){													
 						$rootScope.following = $rootScope.following - 1;
-					})
+						$scope.unfollow[$index] = true;
+					});
                 }
+
 			});
 
 
-			app.controller('getMyFollowers', function($scope,$http){
+			app.controller('getMyFollowers', function($scope,$http,$rootScope){
 				$http.get("/user/getFollowersList").
                 	then(function(response) {
                     	$scope.myFollowers = response.data;
@@ -253,6 +280,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 					})
 					.then(function(response){							
 						$scope.hide = userId;
+						$scope.follow = true;
 					})
                 }
 

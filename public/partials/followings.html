@@ -1,19 +1,25 @@
 <div ng-controller="getFollowings">
- 	<h4 style="text-align:left;padding:10px;color:#9B9999;">Followings</h4>
-        <div style="padding:10px;" ng-class="{'isHide': hide === follow.user_id}" ng-repeat="follow in myFollowingsList">                  
-            <p style="display:inline;float:left;">
-              <a title="Facebook" href="">
-                  <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{follow.profile_pic}}"/>
-              </a> 
-            </p>
-          	<div style="float:left">
-              	<span style="font-size:1.3em;">&nbsp;<a href="">{{follow.full_name}}</a></span> 
-          	</div>
-          	<div style="float:right">
-	            <span style="display: -moz-groupbox;">
-	                <button ng-click="unFollow(follow.user_id)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;Unfollow</button>
-	            </span> 
-          	</div>                                       
-            <hr style="margin:-5px;">
-      	</div>
+ 	<h4 style="text-align:left;padding:10px;color:#9B9999;">Followings</h4>    
+
+         <div class="hidden-xs col-md-6 col-centered" ng-class="{'isHide': hide === follow.user_id}" ng-repeat="follow in myFollowingsList">
+          <div class="item">
+            <div class="content">
+              <div class="card hovercard" style="background-color:#eaf0f2;">
+                <div style="height:135px;">
+                  <img style="border:0px;" alt="" src="images/banner.png"/>
+                </div>
+                <div class="avatar"><img alt="" src="images/{{follow.profile_pic}}"/></div>
+                <div class="info">
+                  <div class="title"><a target="_blank" href="#">{{follow.full_name}}</a></div>
+                  <div class="desc">{{userInfo.email}}</div>
+                  <span style="display: -moz-groupbox;">
+                      <button ng-hide="unfollow[$index]" ng-click="unFollow(follow.user_id,$index)" class="btn btn-default"><i class="fa fa-minus"></i>&nbsp;Unfollow</button>
+                       <button ng-show="unfollow[$index]" ng-click="follow(follow.user_id,$index)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;Follow</button>
+                  </span> 
+                </div>                             
+
+              </div>
+            </div>
+          </div>
+        </div>
 </div>

@@ -89,7 +89,7 @@
 
                   <h4 style="text-align:left;padding:10px;color:#9B9999;">Suggestions</h4>
 
-                  <div style="padding:10px;" ng-class="{'isHide': hide === suggest.user_id}" ng-repeat="suggest in userSuggestions | limitTo:3">                  
+                  <div style="padding:10px;" ng-hide="follow[$index]" ng-repeat="suggest in userSuggestions | limitTo:3">                  
                     <p style="display:inline;float:left;">
                       <a title="Facebook" href="">
                           <img style="border-radius:50%; height:40px; width:40px; " alt="" src="images/{{suggest.profile_pic}}"/>
@@ -100,7 +100,7 @@
                       </div>
                       <div style="float:right">
                           <span style="display: -moz-groupbox;">
-                              <button ng-click="follow(suggest.user_id)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
+                              <button ng-click="follow(suggest.user_id,$index)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
                           </span> 
                       </div>                                       
                     <hr style="margin:-5px;">
