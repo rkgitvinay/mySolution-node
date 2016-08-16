@@ -109,7 +109,7 @@ router.get('/getFollowingsList', function(req,res){
 
 router.get('/getFollowersList', function(req,res){
     var user_id = req.session.user_id;
-    db.query("SELECT u.id as user_id, CONCAT(u.first_name, ' ', u.last_name) as full_name, u.profile_pic FROM users as u LEFT JOIN user_follow as uf on uf.follower_id = u.id WHERE uf.user_id = ?", [user_id], function(err,result){
+    db.query("SELECT u.id as user_id, CONCAT(u.first_name, ' ', u.last_name) as full_name, u.profile_pic, IF((select id from user_follow WHERE user_id = u.id AND follower_id = ?) IS NULL, 0,1 ) as is_following FROM users as u LEFT JOIN user_follow as uf on uf.follower_id = u.id WHERE uf.user_id = ?", [user_id,user_id], function(err,result){
         if(err) res.send({status:'error', error:err});
         else res.send(result);
     });

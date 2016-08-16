@@ -1,20 +1,19 @@
 <div ng-controller="getFollowings">
- 	<h4 style="text-align:left;padding:10px;color:#9B9999;">Followings</h4>    
-
-         <div class="hidden-xs col-md-6 col-centered" ng-class="{'isHide': hide === follow.user_id}" ng-repeat="follow in myFollowingsList">
+  <h4 style="text-align:left;padding:10px;color:#9B9999;">followingions</h4>        
+         <div class="hidden-xs col-md-6 col-centered" ng-repeat="following in myFollowingsList">
           <div class="item">
             <div class="content">
               <div class="card hovercard" style="background-color:#eaf0f2;">
                 <div style="height:135px;">
                   <img style="border:0px;" alt="" src="images/banner.png"/>
                 </div>
-                <div class="avatar"><img alt="" src="images/{{follow.profile_pic}}"/></div>
+                <div class="avatar"><img alt="" src="images/{{following.profile_pic}}"/></div>
                 <div class="info">
-                  <div class="title"><a target="_blank" href="#">{{follow.full_name}}</a></div>
+                  <div class="title"><a target="_blank" href="#">{{following.full_name}}</a></div>
                   <div class="desc">{{userInfo.email}}</div>
                   <span style="display: -moz-groupbox;">
-                      <button ng-hide="unfollow[$index]" ng-click="unFollow(follow.user_id,$index)" class="btn btn-default"><i class="fa fa-minus"></i>&nbsp;Unfollow</button>
-                       <button ng-show="unfollow[$index]" ng-click="follow(follow.user_id,$index)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;Follow</button>
+                      <button ng-show="follow[$index]" ng-click="follow(following.user_id,$index)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
+                       <button ng-hide="follow[$index]" ng-click="unFollow(following.user_id,$index)" class="btn btn-default"><i class="fa fa-minus"></i>&nbsp;Unfollow</button>
                   </span> 
                 </div>                             
 

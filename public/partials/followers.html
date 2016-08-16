@@ -1,6 +1,6 @@
 <div ng-controller="getMyFollowers">
  	<h4 style="text-align:left;padding:10px;color:#9B9999;">Followers</h4>      
-        <div class="hidden-xs col-md-6 col-centered" ng-class="{'isHide': hide === follower.user_id}" ng-repeat="follower in myFollowers">
+        <div class="hidden-xs col-md-6 col-centered" ng-repeat="follower in myFollowersList">
           <div class="item">
             <div class="content">
               <div class="card hovercard" style="background-color:#eaf0f2;">
@@ -12,7 +12,8 @@
                   <div class="title"><a target="_blank" href="#">{{follower.full_name}}</a></div>
                   <div class="desc">{{userInfo.email}}</div>
                   <span style="display: -moz-groupbox;">
-                      <button ng-click="follow(follower.user_id)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
+                      <button ng-if="follower.is_following == 0" ng-click="follow(follower.user_id,$index)" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;follow</button>
+                       <button ng-if="follower.is_following == 1" ng-click="unFollow(follower.user_id,$index)" class="btn btn-default"><i class="fa fa-minus"></i>&nbsp;Unfollow</button>
                   </span> 
                 </div>                             
 
@@ -20,8 +21,6 @@
             </div>
           </div>
         </div>
-
-        
 
 
 </div>

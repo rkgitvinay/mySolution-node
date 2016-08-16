@@ -32,6 +32,9 @@ router.get('/register', function(req,res){
 	res.render('register', { title: 'Title | Registration Page' });
 });
 
+router.get('/profile/:username', function(req,res){
+	res.render('profile', { title: 'Title | profile Page' });
+});
 
 
 module.exports = router;

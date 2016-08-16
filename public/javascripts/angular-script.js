@@ -236,7 +236,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
                     	$scope.myFollowingsList = response.data;
                 });
 
-                $scope.follow = function(userId, $index){                	
+               	$scope.follow = function(userId, $index){                	
                 	$http({
 						method 	: 'POST',
 						url		: '/user/dofollow',
@@ -244,7 +244,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 						headers : { 'Content-Type': 'application/json' } 
 					})
 					.then(function(response){							
-						$scope.unfollow[$index] = false;						
+						$scope.follow[$index] = false;						
 						$rootScope.following = $rootScope.following + 1;
 					})
                 }
@@ -258,7 +258,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 					})
 					.then(function(response){													
 						$rootScope.following = $rootScope.following - 1;
-						$scope.unfollow[$index] = true;
+						$scope.follow[$index] = true;
 					});
                 }
 
@@ -268,7 +268,7 @@ var app = 	angular.module("myApp", ['ngRoute']);
 			app.controller('getMyFollowers', function($scope,$http,$rootScope){
 				$http.get("/user/getFollowersList").
                 	then(function(response) {
-                    	$scope.myFollowers = response.data;
+                    	$scope.myFollowersList = response.data;
                 });
 
                 $scope.follow = function(userId, $index){                	
@@ -279,10 +279,24 @@ var app = 	angular.module("myApp", ['ngRoute']);
 						headers : { 'Content-Type': 'application/json' } 
 					})
 					.then(function(response){							
-						$scope.hide = userId;
-						$scope.follow = true;
+						//$scope.follow[$index] = false;						
+						$rootScope.following = $rootScope.following + 1;
 					})
                 }
+
+                 $scope.unFollow = function(userId,$index){                	
+                	$http({
+						method 	: 'POST',
+						url		: '/user/unfollow',
+						data    : {userId:userId},
+						headers : { 'Content-Type': 'application/json' } 
+					})
+					.then(function(response){													
+						$rootScope.following = $rootScope.following - 1;
+						//$scope.follow[$index] = true;
+					});
+                }
+
 
                 
 			});
